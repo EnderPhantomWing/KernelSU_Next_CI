@@ -46,9 +46,9 @@ jobs:
               # 获取该 run 的所有工件列表
               artifacts_json=$(gh api repos/$TARGET_REPO/actions/runs/$run_id/artifacts)
               
-              # 1. 确认是否包含名为 Manager-release 的工件
-              if echo "$artifacts_json" | jq -e '.artifacts[] | select(.name == "Manager-release")' > /dev/null; then
-                  echo "✅ Found Manager-release. Proceeding to download artifacts..."
+              # 1. 确认是否包含名为 manager 的工件
+              if echo "$artifacts_json" | jq -e '.artifacts[] | select(.name == "manager")' > /dev/null; then
+                  echo "✅ Found manager. Proceeding to download artifacts..."
                   
                   # 创建以 action ID 命名的文件夹并进入
                   mkdir -p "$run_id"
@@ -138,7 +138,7 @@ jobs:
                   cd ..
                   rm -rf "$run_id"
               else
-                  echo "⏭️ No Manager-release artifact found in run $run_id. Skipping."
+                  echo "⏭️ No manager artifact found in run $run_id. Skipping."
               fi
           done
           echo "All done!"
