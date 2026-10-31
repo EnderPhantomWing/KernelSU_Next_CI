@@ -26,7 +26,7 @@ jobs:
         run: |
           echo "Starting to fetch latest $N_LATEST_RUNS runs from $TARGET_REPO..."
           
-          runs_json=$(gh api "repos/$TARGET_REPO/actions/runs?branch=main&per_page=$N_LATEST_RUNS" -q '[.workflow_runs[] | select(.event != "pull_request")] | reverse | .[] | {id: .id, title: .display_title, url: .html_url}')
+          runs_json=$(gh api "repos/$TARGET_REPO/actions/runs?branch=dev&per_page=$N_LATEST_RUNS" -q '[.workflow_runs[] | select(.event != "pull_request")] | reverse | .[] | {id: .id, title: .display_title, url: .html_url}')
           
           echo "$runs_json" | jq -c '.' | while read -r run; do
               run_id=$(echo "$run" | jq -r '.id')
